@@ -15,11 +15,11 @@ h1 {
     margin: 0;
 }
 
-.software-info, .features, .download {
+.software-info, .features, .current-state {
     padding: 20px;
 }
 
-.software-info h2, .features h2, .download h2 {
+.software-info h2, .features h2, .current-state h2 {
     color: #3498db;
 }
 
