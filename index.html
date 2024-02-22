@@ -68,8 +68,14 @@
         <h3>Overwolf + Live Game API</h3>
         <p>
             <a href="https://overwolf.github.io/">Overwolf</a> is a pre-existing game overlay vendor that will greatly simplify UI design, as it already has the capacity to provide in-game overlay for League of Legends. Converting the ML model to a Tensorflow.js should (key word should) allow it to work within Overwolf.
-            <br><br>The model will be fed information from Riot’s live game API (such as player CS), and then will give near-real time predictions for macro decisions like “Do dragon 54% win rate” (and color coded) or “Continue farming 47% win rate.” This will allow players to evaluate different alternatives based on historical trends in how they will affect game outcomes. While in the store, it will also provide itemization hints.
-            <br><br>Additionally, based on historical trends, players during laning phase will receive a gank risk indicated by an icon, number, and optional sound cues. Should they be pushed into enemy tower without vision at 3:40? Probably not! But this is something newer players could appreciate additional feedback on.
+            <br><br>The model will be fed information from Riot’s live game API (such as player CS), and will then determine the most relevant (not necessarily the best) possible macro decisions and display them with color coding. E.g. “Do dragon 54% win rate” (and color coded) or “Continue farming 47% win rate.”
+
+            <br><br>To determine relevance, it will look at player lane / overall map status like elite monster cooldowns. So, unlike the mockup images, it will not show “rotate for dragon” if dragon was just killed. Similarly, while mid might see a “gank bottom” suggestion, top will not, as that is very rare in normal games. It will, however, show options with a variety of estimated outcomes to allow for player choice.
+            
+            <br><br>The purpose of this is to highlight decisions that are important and give multiple choices to help players make good decisions, as required by Riot API standards. The mod supplements but does not replace player analysis and intuition.
+            
+            <br><br>Additionally, when the player is in the store, it will also provide itemization hints using similar historical analysis. 
+            <br><br>Moreover, based on historical trends, players during laning phase will receive a gank risk indicated by an icon, number, and optional sound cues. Should they be pushed into enemy tower without vision at 3:40? Probably not! But this is something newer players could appreciate additional feedback on.
             <br><br><b>Note</b>: the model <b>never</b> tells the player what to do, and it doesn’t have access to health/mana data, so this is a helpful guideline to several choices the player can make that still requires their own decision making and analysis.
         </p>
         <img src="process_mockup(final).png" alt="Process">
