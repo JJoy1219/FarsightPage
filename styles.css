@@ -15,11 +15,11 @@ h1 {
     margin: 0;
 }
 
-.software-info, .features, .current-state {
+.software-info, .features, .current-state, .technical-overview, .mockups {
     padding: 20px;
 }
 
-.software-info h2, .features h2, .current-state h2 {
+.software-info h2, .features h2, .current-state h2, .technical-overview h2, .technical-overview h3, .mockups h2{
     color: #3498db;
 }
 
@@ -28,25 +28,14 @@ ul {
     padding: 0;
 }
 
-a {
-    display: inline-block;
-    background-color: #3498db;
-    color: #fff;
-    padding: 10px 20px;
-    text-decoration: none;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-}
 
-a:hover {
-    background-color: #2980b9;
-}
 
-footer {
+
+.footer {
     background-color: #ecf0f1;
     text-align: center;
     padding: 10px;
-    position: fixed;
+    
     bottom: 0;
     width: 100%;
 }
