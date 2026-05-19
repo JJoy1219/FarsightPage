@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy — Farsight</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0d1117; color: #c9d1d9; line-height: 1.7; padding: 2rem 1rem; }
+        .container { max-width: 720px; margin: 0 auto; }
+        h1 { color: #58a6ff; font-size: 1.8rem; margin-bottom: 0.3rem; }
+        .updated { color: #8b949e; font-size: 0.9rem; margin-bottom: 2rem; }
+        h3 { color: #e6edf3; margin-top: 1.8rem; margin-bottom: 0.5rem; font-size: 1.1rem; }
+        p { margin-bottom: 0.8rem; }
+        ul { margin: 0.5rem 0 1rem 1.5rem; }
+        li { margin-bottom: 0.3rem; }
+        strong { color: #e6edf3; }
+        code { background: #161b22; padding: 0.15rem 0.4rem; border-radius: 4px; font-size: 0.9em; }
+        a { color: #58a6ff; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        .back { display: inline-block; margin-bottom: 1.5rem; color: #8b949e; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a class="back" href="./">&larr; Back to Farsight</a>
+        <h1>Privacy Policy</h1>
+        <p class="updated">Last updated: May 2026</p>
+
+        <h3>1. Who we are</h3>
+        <p>Farsight ("the app") is an AI-powered gank prediction overlay, developed independently.</p>
+
+        <h3>2. What data we collect</h3>
+        <p><strong>By default, Farsight collects no data.</strong> All ML inference runs locally on your device and nothing is transmitted to our servers.</p>
+        <p>If you choose to <strong>opt in to model improvement</strong> (see Section 4), we collect the following anonymised match data:</p>
+        <ul>
+            <li>Game state snapshots (game time, objective timers, turret states, kill/assist/CS counts, gold estimates, champion positions)</li>
+            <li>Champion names and roles for all 10 players</li>
+            <li>Gank prediction outputs from the local model</li>
+        </ul>
+        <p>We <strong>never</strong> collect summoner names or any player identifiers, your Overwolf account information, your IP address or device identifiers, or item purchases or rune selections.</p>
+
+        <h3>3. Data shared with Overwolf</h3>
+        <p>By installing Farsight through the Overwolf platform, you are subject to Overwolf's Privacy Policy. Overwolf may collect your email address, SSO login information, and anonymised usage telemetry as part of operating their platform. We have no control over and no access to this data.</p>
+
+        <h3>4. Opt-in model improvement program</h3>
+        <p>You may choose to help improve Farsight's gank prediction model by sharing anonymised match data with us. This is <strong>strictly opt-in</strong> — it is disabled by default and you can withdraw at any time.</p>
+        <p><strong>What is shared:</strong> The game state data described in Section 2, stripped of all summoner names before transmission. Each match is assigned a random ID with no link to your identity.</p>
+        <p><strong>What it is used for:</strong> Training and evaluating future versions of the LSTM gank prediction model. Data is not sold, shared with third parties, or used for any other purpose.</p>
+        <p><strong>How to opt in or out:</strong> Open Settings &rarr; toggle "Share anonymous match data to improve the model." Your preference is saved locally and takes effect immediately.</p>
+        <p><strong>Retention:</strong> Shared match records are retained for as long as they are useful for model training. You may request deletion of your contributed data at any time by contacting us — because records carry no identity information, deletion requests are honoured by purging all records submitted from your installation token (a random UUID generated locally when you first enable the feature).</p>
+
+        <h3>5. Local session files</h3>
+        <p>The app saves prediction logs to your local device after each game. These files power the "Last Game Review" feature and are stored in <code>%LocalAppData%\Farsight\game_sessions\</code>. They are never uploaded unless you have opted in to the model improvement program. You can delete them at any time.</p>
+
+        <h3>6. Third-party services</h3>
+        <p><strong>ONNX Runtime Web</strong> (Microsoft) — runs ML models locally. No data is sent to Microsoft. <strong>Riot Games Live Client API</strong> — reads game state from your local League of Legends client. No data is sent to Riot through this app.</p>
+
+        <h3>7. Children's privacy</h3>
+        <p>Farsight does not knowingly collect data from anyone, including children under 13.</p>
+
+        <h3>8. Changes to this policy</h3>
+        <p>If we change our data practices, we will update this document and bump the "Last updated" date. Continued use of the app after a policy change constitutes acceptance.</p>
+
+        <h3>9. Contact</h3>
+        <p>For privacy questions or data deletion requests: <strong>support@farsight.gg</strong></p>
+    </div>
+</body>
+</html>
