@@ -38,25 +38,20 @@
 
     <section class="current-state">
         <h2>Where We Are</h2>
-        <p>
-            Farsight is in beta and actively being used in live games. The Overwolf overlay, gank prediction model, action advisor, and sound cues are all functional. Post-game review lets you replay the predictions from your last match.
-            <br><br>
-            We are currently working on expanding the training dataset, refining model accuracy across rank tiers, and developing itemization suggestions.
-        </p>
+        <p>Farsight is in beta and actively being used in live games. The Overwolf overlay, gank prediction model, action advisor, and sound cues are all functional. Post-game review lets you replay the predictions from your last match.</p>
+        <p>We are currently working on expanding the training dataset, refining model accuracy across rank tiers, and developing itemization suggestions.</p>
     </section>
     <section class="mockups">
         <h2>Mockups</h2>
-        <img src="mockup2 jungle.png" alt="mockup2" width="1000" height="562.5">
-        <img src="mockup1 jungle.png" alt="mockup1" width="1000" height="562.5">
+        <img src="mockup2 jungle.png" alt="Mockup — Jungle view">
+        <img src="mockup1 jungle.png" alt="Mockup — Lane view">
     </section>
 
-    <section class=”technical-overview”>
+    <section class="technical-overview">
         <h2>Technical Overview</h2>
         <h3>Data Pipeline</h3>
-        <p>
-            Match data and timelines are queried from the Riot API via Python scripts and stored locally in JSON format. This data is pre-processed into 60-second interval snapshots — reconstructing per-player state (items, gold, positions, objective timers, turret status) at each point in the match.
-            <br><br>Data is segregated by rank, as information from Challenger games is not useful for predicting outcomes in Iron rank games. Each tier gets its own training data and models.
-        </p>
+        <p>Match data and timelines are queried from the Riot API via Python scripts and stored locally in JSON format. This data is pre-processed into 60-second interval snapshots — reconstructing per-player state (items, gold, positions, objective timers, turret status) at each point in the match.</p>
+        <p>Data is segregated by rank, as information from Challenger games is not useful for predicting outcomes in Iron rank games. Each tier gets its own training data and models.</p>
         <h3>Machine Learning</h3>
         <p>
             Farsight uses multiple ML models working together:
@@ -70,12 +65,10 @@
             All models are exported to ONNX format and run locally via ONNX Runtime Web. Web-optimized models use sharded weights for efficient loading. No inference is done server-side.
         </p>
         <h3>Overwolf + Live Game API</h3>
-        <p>
-            <a href=”https://overwolf.github.io/”>Overwolf</a> provides the in-game overlay platform. Game state is read from Riot’s Live Client API (local endpoint at 127.0.0.1:2999), feeding real-time data to the ML models.
-            <br><br>The action advisor evaluates relevant macro decisions based on role, lane state, and objective availability — it won’t suggest “rotate for dragon” if dragon was just killed, and top lane won’t see “gank bottom.” Options are displayed with color-coded win rate estimates to help players choose between multiple viable paths.
-            <br><br>During laning phase, the gank predictor provides risk indicators with visual icons and sound cues, warning players of incoming danger based on game state patterns.
-            <br><br><b>Note</b>: Farsight <b>never</b> tells the player what to do. It presents multiple options with estimated outcomes to supplement — not replace — player analysis and intuition.
-        </p>
+        <p><a href=”https://overwolf.github.io/”>Overwolf</a> provides the in-game overlay platform. Game state is read from Riot’s Live Client API (local endpoint at 127.0.0.1:2999), feeding real-time data to the ML models.</p>
+        <p>The action advisor evaluates relevant macro decisions based on role, lane state, and objective availability — it won’t suggest “rotate for dragon” if dragon was just killed, and top lane won’t see “gank bottom.” Options are displayed with color-coded win rate estimates to help players choose between multiple viable paths.</p>
+        <p>During laning phase, the gank predictor provides risk indicators with visual icons and sound cues, warning players of incoming danger based on game state patterns.</p>
+        <p><b>Note</b>: Farsight <b>never</b> tells the player what to do. It presents multiple options with estimated outcomes to supplement — not replace — player analysis and intuition.</p>
         <img src="process_mockup%28final%29.png" alt="Process">
     </section>
 
