@@ -9,39 +9,42 @@
 <body>
     <header>
         <h1>Farsight</h1>
-        <p>Your ML powered League Assistant</p>
+        <p>AI-Powered Gank Prediction &amp; Macro Advisor for League of Legends</p>
     </header>
     
     <section class="software-info">
         <h2>About Farsight</h2>
-        <p>Farsight is a League of Legends companion app that provides near real time advice to players about
-            macro level decisions based on an advanced machine learning model trained on thousands of games.
-        </p>
+        <p>Farsight is a League of Legends Overwolf overlay that helps players make better decisions in real time using two AI-powered systems:</p>
         <br>
-        <p>"Should I push for a plate or back and buy" is a complicated question. Farsight will show players
-            a few potential decisions and their effect on predicted win rate.
-        </p>
-        <!-- Add more information about the software -->
+        <p><strong>Gank Prediction</strong> — An LSTM neural network analyzes the current game state to predict gank risk for each player during laning phase, giving you advance warning with visual indicators and sound cues.</p>
+        <br>
+        <p><strong>Action Advisor</strong> — A win rate prediction model evaluates your macro options — push for a plate, rotate for dragon, back and buy — and shows the estimated win rate impact of each decision so you can choose with confidence.</p>
+        <br>
+        <p>All inference runs locally on your machine. No data is sent to any server.</p>
     </section>
 
     <section class="features">
-        <h2>Feature Roadmap</h2>
+        <h2>Features</h2>
         <ul>
-            <li>-  In game overlay with decision highlights</li>
-            <li>-  Highlighted actions vary based on role!</li>
-            <li>-  Itemization suggestions</li>
-            <li>-  Sound cues for objectives and danger!</li>
+            <li>- In-game Overwolf overlay with real-time decision highlights</li>
+            <li>- Gank risk prediction with visual indicators per player</li>
+            <li>- Macro action advisor with win rate estimates</li>
+            <li>- Highlighted actions vary based on role</li>
+            <li>- Sound cues for objectives and danger</li>
+            <li>- Post-game review of predictions and decisions</li>
+        </ul>
+        <h3>Coming Soon</h3>
+        <ul>
+            <li>- Itemization suggestions</li>
         </ul>
     </section>
 
     <section class="current-state">
         <h2>Where We Are</h2>
         <p>
-            Initial backend development is complete. The next step is to scale up the number of
-            games to be processed, as we will need access to tens of thousands of games to
-            deliver the most precise suggestions.
+            Farsight is in beta and actively being used in live games. The Overwolf overlay, gank prediction model, action advisor, and sound cues are all functional. Post-game review lets you replay the predictions from your last match.
             <br><br>
-            We will also be using Overwolf technology to develop an in-game overlay as seen in the mockups.
+            We are currently working on expanding the training dataset, refining model accuracy across rank tiers, and developing itemization suggestions.
         </p>
     </section>
     <section class="mockups">
@@ -50,41 +53,39 @@
         <img src="mockup1 jungle.png" alt="mockup1" width="1000" height="562.5">
     </section>
 
-    <section class="technical-overview">
+    <section class=”technical-overview”>
         <h2>Technical Overview</h2>
         <h3>Data Pipeline</h3>
         <p>
-            Data is queried via python scripts from the Riot API and written more or less as is in JSON format on a local machine. Match data and match timelines are the primary data of importance, but summoner data, match history, and league rankings are used to properly sort and acquire data.
-            <br><br>This data is then pre-processed into a series of 60 second intervals via Python scripts. A match + its timeline has the information needed to reconstruct most of the information in the match, but it is a non-trivial task to determine what items Lux had at 1333 seconds into a match. This data is stored locally for later use by machine learning models.
-            <br><br>Data is segregated by rank, as information from Challenger games is not going to be useful in predicting the outcome of Iron rank games, and both players need different advice.
+            Match data and timelines are queried from the Riot API via Python scripts and stored locally in JSON format. This data is pre-processed into 60-second interval snapshots — reconstructing per-player state (items, gold, positions, objective timers, turret status) at each point in the match.
+            <br><br>Data is segregated by rank, as information from Challenger games is not useful for predicting outcomes in Iron rank games. Each tier gets its own training data and models.
         </p>
         <h3>Machine Learning</h3>
         <p>
-            This process is still being built out. An initial attempt at using the Keras framework neural network based time series model with a small sample of 3000 matches did not converge, likely due to the number of columns in the dataset compared to the sample size.
-            <br><br>Once the sample is increased to tens of thousands, we are planning to first re-try the same approach, but may also work with different frameworks to see which has the best performance ratio.
-            <br><br>It is certain that models will be quantized to be as efficient as possible, as the nature of doing near real time inference during gameplay is that GPU time will be limited. Tentatively the model will be quantized and then deployed using Tensorflow.js, but this is subject to change after experimentation.
-            <br><br>Further model details will be included as research proceeds.
+            Farsight uses multiple ML models working together:
+        </p>
+        <ul>
+            <li><strong>Gank Prediction (LSTM)</strong> — A recurrent neural network trained in PyTorch on sequential game state data to predict gank risk per player. Multiple model variants (balanced, conservative, focal) are available at runtime.</li>
+            <li><strong>Win Rate Prediction (LightGBM)</strong> — Evaluates macro game state to estimate win probability for different decisions, powering the action advisor.</li>
+            <li><strong>Champion Detection (YOLO)</strong> — Computer vision model that reads the minimap to detect champion and unit positions.</li>
+        </ul>
+        <p>
+            All models are exported to ONNX format and run locally via ONNX Runtime Web. Web-optimized models use sharded weights for efficient loading. No inference is done server-side.
         </p>
         <h3>Overwolf + Live Game API</h3>
         <p>
-            <a href="https://overwolf.github.io/">Overwolf</a> is a pre-existing game overlay vendor that will greatly simplify UI design, as it already has the capacity to provide in-game overlay for League of Legends. Converting the ML model to a Tensorflow.js should (key word should) allow it to work within Overwolf.
-            <br><br>The model will be fed information from Riot’s live game API (such as player CS), and will then determine the most relevant (not necessarily the best) possible macro decisions and display them with color coding. E.g. “Do dragon 54% win rate” (and color coded) or “Continue farming 47% win rate.”
-
-            <br><br>To determine relevance, it will look at player lane / overall map status like elite monster cooldowns. So, unlike the mockup images, it will not show “rotate for dragon” if dragon was just killed. Similarly, while mid might see a “gank bottom” suggestion, top will not, as that is very rare in normal games. It will, however, show options with a variety of estimated outcomes to allow for player choice.
-            
-            <br><br>The purpose of this is to highlight decisions that are important and give multiple choices to help players make good decisions, as required by Riot API standards. The mod supplements but does not replace player analysis and intuition.
-            
-            <br><br>Additionally, when the player is in the store, it will also provide itemization hints using similar historical analysis. 
-            <br><br>Moreover, based on historical trends, players during laning phase will receive a gank risk indicated by an icon, number, and optional sound cues. Should they be pushed into enemy tower without vision at 3:40? Probably not! But this is something newer players could appreciate additional feedback on.
-            <br><br><b>Note</b>: the model <b>never</b> tells the player what to do, and it doesn’t have access to health/mana data, so this is a helpful guideline to several choices the player can make that still requires their own decision making and analysis.
+            <a href=”https://overwolf.github.io/”>Overwolf</a> provides the in-game overlay platform. Game state is read from Riot’s Live Client API (local endpoint at 127.0.0.1:2999), feeding real-time data to the ML models.
+            <br><br>The action advisor evaluates relevant macro decisions based on role, lane state, and objective availability — it won’t suggest “rotate for dragon” if dragon was just killed, and top lane won’t see “gank bottom.” Options are displayed with color-coded win rate estimates to help players choose between multiple viable paths.
+            <br><br>During laning phase, the gank predictor provides risk indicators with visual icons and sound cues, warning players of incoming danger based on game state patterns.
+            <br><br><b>Note</b>: Farsight <b>never</b> tells the player what to do. It presents multiple options with estimated outcomes to supplement — not replace — player analysis and intuition.
         </p>
-        <img src="process_mockup(final).png" alt="Process">
+        <img src=”process_mockup(final).png” alt=”Process”>
     </section>
 
     <section class="footer">
         <p>Farsight isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games, and all associated properties are trademarks or registered trademarks of Riot Games, Inc.</p>
         <p><a href="privacy.html">Privacy Policy</a> · <a href="tos.html">Terms of Service</a></p>
-        <p>&copy; 2024 Farsight. All rights reserved.</p>
+        <p>&copy; 2026 Farsight. All rights reserved.</p>
     </section>
 
 </body>

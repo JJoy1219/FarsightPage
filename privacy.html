@@ -28,7 +28,7 @@
         <p class="updated">Last updated: May 2026</p>
 
         <h3>1. Who we are</h3>
-        <p>Farsight ("the app") is an AI-powered gank prediction overlay, developed independently.</p>
+        <p>Farsight ("the app") is an AI-powered League of Legends overlay providing gank prediction and macro action advising, developed independently.</p>
 
         <h3>2. What data we collect</h3>
         <p><strong>By default, Farsight collects no data.</strong> All ML inference runs locally on your device and nothing is transmitted to our servers.</p>
@@ -36,7 +36,7 @@
         <ul>
             <li>Game state snapshots (game time, objective timers, turret states, kill/assist/CS counts, gold estimates, champion positions)</li>
             <li>Champion names and roles for all 10 players</li>
-            <li>Gank prediction outputs from the local model</li>
+            <li>Gank prediction and action advisor outputs from the local models</li>
         </ul>
         <p>We <strong>never</strong> collect summoner names or any player identifiers, your Overwolf account information, your IP address or device identifiers, or item purchases or rune selections.</p>
 
@@ -46,12 +46,12 @@
         <h3>4. Opt-in model improvement program</h3>
         <p>You may choose to help improve Farsight's gank prediction model by sharing anonymised match data with us. This is <strong>strictly opt-in</strong> — it is disabled by default and you can withdraw at any time.</p>
         <p><strong>What is shared:</strong> The game state data described in Section 2, stripped of all summoner names before transmission. Each match is assigned a random ID with no link to your identity.</p>
-        <p><strong>What it is used for:</strong> Training and evaluating future versions of the LSTM gank prediction model. Data is not sold, shared with third parties, or used for any other purpose.</p>
+        <p><strong>What it is used for:</strong> Training and evaluating future versions of the gank prediction and action advisor models. Data is not sold, shared with third parties, or used for any other purpose.</p>
         <p><strong>How to opt in or out:</strong> Open Settings &rarr; toggle "Share anonymous match data to improve the model." Your preference is saved locally and takes effect immediately.</p>
         <p><strong>Retention:</strong> Shared match records are retained for as long as they are useful for model training. You may request deletion of your contributed data at any time by contacting us — because records carry no identity information, deletion requests are honoured by purging all records submitted from your installation token (a random UUID generated locally when you first enable the feature).</p>
 
         <h3>5. Local session files</h3>
-        <p>The app saves prediction logs to your local device after each game. These files power the "Last Game Review" feature and are stored in <code>%LocalAppData%\Farsight\game_sessions\</code>. They are never uploaded unless you have opted in to the model improvement program. You can delete them at any time.</p>
+        <p>The app saves gank prediction and action advisor logs to your local device after each game. These files power the "Last Game Review" feature and are stored in <code>%LocalAppData%\Farsight\game_sessions\</code>. They are never uploaded unless you have opted in to the model improvement program. You can delete them at any time.</p>
 
         <h3>6. Third-party services</h3>
         <p><strong>ONNX Runtime Web</strong> (Microsoft) — runs ML models locally. No data is sent to Microsoft. <strong>Riot Games Live Client API</strong> — reads game state from your local League of Legends client. No data is sent to Riot through this app.</p>
